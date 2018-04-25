@@ -6,22 +6,40 @@ import cn.codingcheng.entity.SuccessKilled;
 import cn.codingcheng.enums.SeckillStateEnum;
 
 /**
- * 封装执行秒杀后的结果：是否秒杀成功
- * Created by JasonRen on 2018/3/13
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
  */
 public class SeckillExecution {
     private long seckillId;
 
-    //秒杀执行结果的状态
+
+    /**
+    * @Fields state :  秒杀执行结果的状态
+    */
     private int state;
 
-    //状态的明文标识
+
+    /**
+    * @Fields stateInfo : 状态的明文标识
+    */
     private String stateInfo;
 
-    //当秒杀成功时，需要传递秒杀成功的对象回去
+
+    /**
+    * @Fields successKilled : 当秒杀成功时，需要传递秒杀成功的对象回去
+    */
     private SuccessKilled successKilled;
 
-    //秒杀成功返回所有信息
+
+    /**
+     * 秒杀成功返回所有信息
+     * @param seckillId
+     * @param stateNum
+     * @param successKilled
+     * @return
+     */
+
     public SeckillExecution(long seckillId, SeckillStateEnum stateNum, SuccessKilled successKilled){
         this.seckillId = seckillId;
         this.state = stateNum.getState();
@@ -29,12 +47,19 @@ public class SeckillExecution {
         this.successKilled = successKilled;
     }
 
-    //秒杀失败
+
+    /**
+     * 秒杀失败
+     * @param seckillId
+     * @param stateEnum
+     * @return
+     */
     public SeckillExecution(long seckillId, SeckillStateEnum stateEnum){
         this.seckillId = seckillId;
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getInfo();
     }
+
 
     public long getSeckillId() {
         return seckillId;

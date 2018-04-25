@@ -1,7 +1,11 @@
 package cn.codingcheng.dto;
 
 
-//将所有的ajax请求返回类型，全部封装成json数据
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public class SeckillResult<T> {
 
     private boolean success;

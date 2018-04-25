@@ -5,13 +5,18 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public interface SeckillDao {
+
     /**
-     * @description: 减库存
-     * @param: seckillId
-     * @param: killTime
-     * @return:如果影响行数>1,表示更新库存的记录行数
+     * 减库存
+     * @param  seckillId
+     * @param  killTime
+     * @return
      */
 
     int reduceNumber(@Param("seckillId") long seckillId, @Param("killTime") Date killTime);
@@ -26,7 +31,7 @@ public interface SeckillDao {
 
     /**
      * 根据偏移量查询秒杀商品列表
-     * @param off
+     * @param offset
      * @param limit
      * @return
      */

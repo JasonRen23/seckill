@@ -17,8 +17,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-@Component //url:模块/资源/{}/细分
+@Component
 @RequestMapping("/seckill")
+/**
+* url:模块/资源/{}/细分
+*/
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public class SeckillController {
     @Autowired
     private SeckillService seckillService;
@@ -47,7 +55,12 @@ public class SeckillController {
         return "detail";
     }
 
-    //ajax, json暴露秒杀接口的方法
+
+    /**
+     * ajax, json暴露秒杀接口的方法
+     * @param
+     * @return
+     */
     @RequestMapping(value = "/{seckillId}/exposer",
             method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
@@ -92,7 +105,11 @@ public class SeckillController {
         }
     }
 
-    //获取系统时间
+    /**
+     * 获取系统时间
+     * @param
+     * @return
+     */
     @RequestMapping(value = "/time/now",method = RequestMethod.GET)
     public SeckillResult<Long> time(){
         Date now = new Date();

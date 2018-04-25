@@ -2,13 +2,21 @@ package cn.codingcheng.entity;
 
 import java.util.Date;
 
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public class SuccessKilled {
     private long seckillId;
     private long userPhone;
     private short state;
     private Date createTime;
 
-    //多对一，因为一件商品在库存中有很多数量，对应的购买明细也有很多。
+
+    /**
+    * @Fields seckill :多对一，因为一件商品在库存中有很多数量，对应的购买明细也有很多。
+    */
     private Seckill seckill;
 
     public long getSeckillId() {

@@ -8,7 +8,11 @@ import cn.codingcheng.exception.SeckillCloseException;
 import cn.codingcheng.exception.SeckillException;
 
 import java.util.List;
-
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public interface SeckillService {
     /**
      * 查询全部的秒杀记录
@@ -18,8 +22,8 @@ public interface SeckillService {
 
     /**
      * 查询单个秒杀记录
-     * @param: seckillId
-     * @return:
+     * @param seckillId
+     * @return
      */
 
     Seckill getById(long seckillId);
@@ -29,18 +33,21 @@ public interface SeckillService {
 
     /**
      * 在秒杀开启时输出秒杀接口的地址，否则输出系统时间和秒杀时间
-     * @param: seckillId
-     * @return:
+     * @param seckillId
+     * @return
      */
 
     Exposer exportSeckillUrl(long seckillId);
 
     /**
      * 执行秒杀操作，有可能失败，有可能成功，所以要抛出我们允许的异常
-     * @param: seckillId
-     * @param: userPhone
-     * @param: md5
-     * @return:
+     * @param seckillId
+     * @param userPhone
+     * @param md5
+     * @throws SeckillException
+     * @throws RepeatKillException
+     * @throws SeckillCloseException
+     * @return SeckillExecution
      */
 
     SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)

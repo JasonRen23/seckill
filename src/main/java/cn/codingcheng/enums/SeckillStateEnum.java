@@ -1,6 +1,13 @@
 package cn.codingcheng.enums;
-
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public enum  SeckillStateEnum {
+    /**
+     * Enum Field
+     */
     SUCCESS(1, "秒杀成功"),
     END(0, "秒杀结束"),
     REPEAT_KILL(-1, "重复秒杀"),

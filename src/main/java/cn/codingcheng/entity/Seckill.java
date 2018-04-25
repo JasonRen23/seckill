@@ -2,6 +2,11 @@ package cn.codingcheng.entity;
 
 import java.util.Date;
 
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 public class Seckill {
     private long seckillId;
     private String name;

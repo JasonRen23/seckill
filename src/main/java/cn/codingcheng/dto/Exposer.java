@@ -1,28 +1,62 @@
 package cn.codingcheng.dto;
 
+
 /**
- * Created by JasonRen on 2018/3/13
  * 暴露秒杀地址（接口）DTO
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
  */
 public class Exposer {
 
-    //是否开启秒杀
+
+    /**
+     * 是否开启秒杀
+     * @param
+     * @return
+     */
     private boolean exposed;
 
-    //对秒杀地址加密措施
+
+    /**
+     * 对秒杀地址加密措施
+     * @param
+     * @return
+     */
     private String md5;
 
-    //id为seckillId的商品的秒杀地址
+
+    /**
+     * id为seckillId的商品的秒杀地址
+     * @param
+     * @return
+     */
     private long seckillId;
 
-    //系统当前时间（毫秒）
+
+    /**
+     * 系统当前时间（毫秒）
+     * @param
+     * @return
+     */
     private long now;
 
-    //秒杀的开启时间
+
+    /**
+    * @Fields start : 秒杀的开启时间
+    */
+
     private long start;
 
-    //秒杀的结束时间
+
+    /**
+     * 秒杀的结束时间
+     * @param
+     * @return
+     */
+
     private long end;
+
 
     public Exposer(boolean exposed, String md5, long seckillId){
         this.exposed = exposed;

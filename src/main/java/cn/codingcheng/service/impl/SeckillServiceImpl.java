@@ -20,21 +20,37 @@ import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author : JasonRen
+ * @date : 2018/4/25
+ * @email : zhicheng_ren@163.com
+ */
 @Service
 public class SeckillServiceImpl implements SeckillService {
 
-    //日志对象
+
+    /**
+    * @Fields logger : 日志对象
+    */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //加入一个混淆字符串（秒杀接口）的list, 为了避免用户猜出我们的md5值，值任意给，越复杂越好
+
+    /**
+    * @Fields salt : 加入一个混淆字符串（秒杀接口）的list, 为了避免用户猜出我们的md5值，值任意给，越复杂越好
+    */
     private final String salt = "shsdssljdd'l.";
 
-    //注入Service依赖
+
     @Autowired //@Resource
+    /**
+    * @Fields seckillDao : 注入Service依赖
+    */
     private SeckillDao seckillDao;
 
     @Autowired //@Resource
+    /**
+    * @Fields successKilledDao : 注入Service依赖
+    */
     private SuccessKilledDao successKilledDao;
 
 
@@ -48,7 +64,8 @@ public class SeckillServiceImpl implements SeckillService {
 
     public Exposer exportSeckillUrl(long seckillId){
         Seckill seckill = seckillDao.queryById(seckillId);
-        if(seckill == null){ //说明查不到这个秒杀产品的记录
+        //说明查不到这个秒杀产品的记录
+        if(seckill == null){
             return new Exposer(false, seckillId);
         }
         //若是秒杀未开启
@@ -74,7 +91,7 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     //秒杀是否成功，成功：减库存，增加明细；失败：抛出异常，事务回滚
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     /**
      *使用注解控制事务方法的优点：
      * 1. 开发团队达成一致约定，明确标注事务方法的编程风格
@@ -84,7 +101,8 @@ public class SeckillServiceImpl implements SeckillService {
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
     throws SeckillException, RepeatKillException, SeckillCloseException{
         if(md5 == null || !md5.equals(getMD5(seckillId))){
-            throw new SeckillException("seckill data rewrite");//秒杀数据被重写了
+            //秒杀数据被重写了
+            throw new SeckillException("seckill data rewrite");
         }
 
         //执行秒杀逻辑：减库存+增加购买明细
