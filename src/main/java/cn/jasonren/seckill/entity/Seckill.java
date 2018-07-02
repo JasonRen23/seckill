@@ -1,4 +1,4 @@
-package cn.jasonren.cheetahSeckill.entity;
+package cn.jasonren.seckill.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -97,7 +97,7 @@ public class Seckill implements Serializable{
 
     @Override
     public String toString() {
-        return "cn.jasonren.cheetahSeckill.entity.Seckill{" +
+        return "cn.jasonren.seckill.entity.Seckill{" +
                 "主键ID=" + seckillId +
                 ", 秒杀商品='" + name + '\'' +
                 ", 商品数量=" + number +

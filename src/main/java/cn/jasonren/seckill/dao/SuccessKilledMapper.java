@@ -1,6 +1,6 @@
-package cn.jasonren.cheetahSeckill.dao;
+package cn.jasonren.seckill.dao;
 
-import cn.jasonren.cheetahSeckill.entity.SuccessKilled;
+import cn.jasonren.seckill.entity.SuccessKilled;
 import org.apache.ibatis.annotations.Param;
 
 /**

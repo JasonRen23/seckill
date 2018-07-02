@@ -1,11 +1,16 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.jasonren.cheetahSeckill.dao.SeckillMapper">
+<mapper namespace="cn.jasonren.seckill.dao.SeckillMapper">
     <!--目的:为dao接口方法提供sql语句配置
    即针对dao接口中的方法编写我们的sql语句-->
-    <resultMap id="BaseResultMap" type="cn.jasonren.cheetahSeckill.entity.Seckill">
-
+    <resultMap id="BaseResultMap" type="cn.jasonren.seckill.entity.Seckill">
+        <!--<id property="seckillId" column="seckill_id" javaType="Long" jdbcType="BIGINT"/>-->
+        <!--<result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>-->
+        <!--<result property="number" column="number" javaType="Integer" jdbcType="VARCHAR"/>-->
+        <!--<result property="startTime" column="start_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>-->
+        <!--<result property="endTime" column="end_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>-->
+        <!--<result property="createTIme" column="create_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>-->
     </resultMap>
     <update id="reduceNumber">
         UPDATE seckill
@@ -16,7 +21,7 @@
         AND number > 0
     </update>
 
-    <select id="queryById" resultType="cn.jasonren.cheetahSeckill.entity.Seckill">
+    <select id="queryById" resultType="cn.jasonren.seckill.entity.Seckill">
         SELECT *
         FROM seckill AS s
         WHERE s.seckill_id = #{seckillId}
@@ -25,14 +30,14 @@
     <select id="queryAll" resultMap="BaseResultMap">
         SELECT *
         FROM seckill AS s
-        ORDER BY seckil_id ASC
+        ORDER BY seckill_id ASC
         LIMIT #{offset}, #{limit}
     </select>
 
     <!--调用存储过程-->
     <select id="killByProcedure" statementType="CALLABLE">
         CALL execute_seckill(
-        #{seckillId, jdbyType=BIGINT,mode=IN},
+        #{seckillId, jdbcType=BIGINT,mode=IN},
         #{phone,jdbcType=BIGINT,mode=IN},
         #{killTime,jdbcType=TIMESTAMP,mode=IN},
         #{result,jdbcType=INTEGER,mode=OUT}

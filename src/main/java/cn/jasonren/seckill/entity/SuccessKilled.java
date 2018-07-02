@@ -1,4 +1,4 @@
-package cn.jasonren.cheetahSeckill.entity;
+package cn.jasonren.seckill.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

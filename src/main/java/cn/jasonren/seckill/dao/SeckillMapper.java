@@ -1,6 +1,6 @@
-package cn.jasonren.cheetahSeckill.dao;
+package cn.jasonren.seckill.dao;
 
-import cn.jasonren.cheetahSeckill.entity.Seckill;
+import cn.jasonren.seckill.entity.Seckill;
 import org.apache.ibatis.annotations.Param;
 import java.util.Date;
 import java.util.List;
