@@ -2,17 +2,28 @@ package cn.jasonren.seckill.service;
 
 
 import cn.jasonren.seckill.dao.SeckillMapper;
+import cn.jasonren.seckill.dao.SuccessKilledMapper;
 import cn.jasonren.seckill.dto.Exposer;
+import cn.jasonren.seckill.dto.SeckillExecution;
 import cn.jasonren.seckill.entity.Seckill;
+import cn.jasonren.seckill.entity.SuccessKilled;
+import cn.jasonren.seckill.enums.SeckillStatEnum;
+import cn.jasonren.seckill.exception.RepeatKillException;
+import cn.jasonren.seckill.exception.SeckillCloseException;
+import cn.jasonren.seckill.exception.SeckillException;
 import cn.jasonren.seckill.service.interfaces.SeckillService;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : JasonRen
@@ -30,17 +41,19 @@ public class SeckillServiceImpl implements SeckillService{
     @Autowired
     private SeckillMapper seckillMapper;
     @Autowired
-    private SeckillMapper successKilledMapper;
+    private SuccessKilledMapper successKilledMapper;
 
-
+    @Override
     public List<Seckill> getSeckillList() {
         return seckillMapper.queryAll(0, 4);
     }
 
+    @Override
     public Seckill getById(long seckillId) {
         return seckillMapper.queryById(seckillId);
     }
 
+    @Override
     public Exposer exportSeckillUrl(long seckillId) {
         Seckill seckill = seckillMapper.queryById(seckillId);
         if(seckill == null){
@@ -65,5 +78,68 @@ public class SeckillServiceImpl implements SeckillService{
     private String getMd5(long seckillId){
         String base = seckillId + "/" + salt;
         return DigestUtils.md5DigestAsHex(base.getBytes());
+    }
+
+    @Transactional
+    @Override
+    public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
+        throws SeckillException, RepeatKillException, SeckillException {
+        if(md5 == null || md5.equals(getMd5(seckillId))){
+            logger.error("秒杀数据被篡改");
+            throw new SeckillException("seckill data rewrite");
+        }
+        // 执行秒杀业务逻辑
+        Date nowTime = new Date();
+
+        try{
+            int reduceNumber = seckillMapper.reduceNumber(seckillId, nowTime);
+            if(reduceNumber <= 0){
+                logger.warn("没有更新数据库记录，说明秒杀结束");
+                throw new SeckillCloseException("seckill is closed");
+            }else {
+                int insertCount = successKilledMapper.insertSuccessKilled(seckillId, userPhone);
+                if(insertCount <= 0){
+                    throw new RepeatKillException("seckill repeated");
+                }else {
+                    SuccessKilled successKilled = successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);
+                    return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);
+                }
+            }
+        }catch (SeckillCloseException | RepeatKillException e1){
+            throw e1;
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            //把编译期一场转换为运行时异常
+            throw new SeckillException("seckill inner error : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5){
+        if(md5 == null || !md5.equals(getMd5(seckillId))){
+            return new SeckillExecution(seckillId, SeckillStatEnum.DATA_REWRITE);
+        }
+        Date killTime = new Date();
+        Map<String, Object> map = new HashMap<>();
+        map.put("seckillId", seckillId);
+        map.put("phone", userPhone);
+        map.put("killTime", killTime);
+        map.put("result", null);
+        //执行储存过程，result被复制
+        try {
+            seckillMapper.killByProcedure(map);
+            //获取result
+            int result = MapUtils.getInteger(map, "result", -2);
+            if(result == 1){
+                SuccessKilled successKilled = successKilledMapper.queryByIdWithSeckill(seckillId, userPhone);
+                return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, successKilled);
+            }else {
+                return new SeckillExecution(seckillId, SeckillStatEnum.stateOf(result));
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return new SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);
+        }
+
     }
 }

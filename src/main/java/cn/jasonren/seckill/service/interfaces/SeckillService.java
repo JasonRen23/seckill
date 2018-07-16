@@ -1,7 +1,11 @@
 package cn.jasonren.seckill.service.interfaces;
 
+import cn.jasonren.seckill.dto.SeckillExecution;
 import cn.jasonren.seckill.entity.Seckill;
 import cn.jasonren.seckill.dto.Exposer;
+import cn.jasonren.seckill.exception.RepeatKillException;
+import cn.jasonren.seckill.exception.SeckillCloseException;
+import cn.jasonren.seckill.exception.SeckillException;
 
 import java.util.List;
 
@@ -32,5 +36,16 @@ public interface SeckillService {
      */
     Exposer exportSeckillUrl(long seckillId);
 
+    /**
+     * 执行秒杀操作，有可能是失败的，失败就抛异常
+     *
+     * @param seckillId 秒杀的商品ID
+     * @param userPhone 手机号码
+     * @param md5       md5加密值
+     * @return 根据不同的结果返回不同的实体信息
+     */
+    SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException, RepeatKillException, SeckillCloseException;
+
+    SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5);
 
 }
