@@ -1,7 +1,10 @@
 package cn.jasonren.seckill.service;
 
 import cn.jasonren.seckill.dto.Exposer;
+//import cn.jasonren.seckill.dto.SeckillExecution;
 import cn.jasonren.seckill.entity.Seckill;
+import cn.jasonren.seckill.exception.RepeatKillException;
+import cn.jasonren.seckill.exception.SeckillCloseException;
 import cn.jasonren.seckill.service.interfaces.SeckillService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
