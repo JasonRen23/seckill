@@ -10,6 +10,9 @@ import cn.jasonren.seckill.exception.SeckillException;
 import java.util.List;
 
 /**
+ * 业务接口：站在"使用者"角度设计接口
+ * 三个方面：方法定义粒度，参数，返回类型（return类型）
+ *
  * @author : JasonRen
  * @date : 2018/07/02
  * @email : zhicheng_ren@163.com
@@ -29,7 +32,7 @@ public interface SeckillService {
     Seckill getById(long seckillId);
 
     /**
-     * 在秒杀开启时输出秒杀接口的地址，否则输出系统时间跟秒杀地址
+     * 在秒杀开启时输出秒杀接口的地址，否则输出系统时间跟秒杀时间
      *
      * @param seckillId
      * @return 根据对应的状态返回对应的状态实体
