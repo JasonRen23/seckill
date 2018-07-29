@@ -14,6 +14,8 @@ import java.util.List;
  * @author : JasonRen
  * @date : 2018/07/02
  * @email : zhicheng_ren@163.com
+ *
+ * 配置Spring和Junit整合，junit在启动时就会加载spring容器
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)

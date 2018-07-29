@@ -9,7 +9,7 @@
         <setting name="useGeneratedKeys" value="true"/>
         <!--使用别名替换列名，默认就是开启的-->
         <setting name="useColumnLabel" value="true"/>
-        <!--开启驼峰命名的转换-->
+        <!--开启驼峰命名的转换Table:create_time到Entity(createTime)-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 </configuration>
