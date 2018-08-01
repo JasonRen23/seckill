@@ -1,6 +1,13 @@
 ## Java高并发秒杀项目
 ### 环境
 jdk1.8 + mac idea + tomcat7 Plugin / tomcat热部署
+### 优化思路
+1. 查询秒杀url的时候先去redis中查询，如果redis中不存在这个key，再去MySQL中查找，减轻
+MySQL压力，同时采用protostuff做序列化框架序列化Seckill这个POJO。
+2. 因为对数据库的更新操作需要获取行锁，而插入不需要，如果我们将插入和更新的顺序调换，也可以
+减少竞争行级锁的阻塞时间。
+3. 将执行秒杀操作的insert和update直接放在MySQL服务端的存储过程，Java客户端直接调用，省去了
+事务管理。
 
 ### 重点难点
 1. Spring的声明式事务，此次项目里采用的是@Transcational注解的方式。并且spring的事务
