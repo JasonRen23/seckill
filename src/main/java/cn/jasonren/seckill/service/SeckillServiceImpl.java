@@ -90,9 +90,16 @@ public class SeckillServiceImpl implements SeckillService{
      */
     @Transactional
     @Override
+    /**
+     * 使用注解控制事务方法的优点：
+     * 1.开发团队一致约定，明确标注事务方法的编程风格
+     * 2.保证事务方法的执行时间尽可能短，不要穿插其他的网络操作，RPC/HTTP请求或者剥离到事务方法外部
+     * 3.不是所有的方法都需要事务，如只有一条修改操作，只读操作不需要事务控制
+     *
+     */
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
         throws SeckillException, RepeatKillException, SeckillException {
-        if(md5 == null || md5.equals(getMd5(seckillId))){
+        if(md5 == null || !md5.equals(getMd5(seckillId))){
             logger.error("秒杀数据被篡改");
             throw new SeckillException("seckill data rewrite");
         }
@@ -105,7 +112,7 @@ public class SeckillServiceImpl implements SeckillService{
                 logger.warn("没有更新数据库记录，说明秒杀结束");
                 throw new SeckillCloseException("seckill is closed");
             }else {
-                int insertCount = successKilledMapper.insertSuccessKilled(seckillId, userPhone);
+                int insertCount = successKilledMapper.insertSuccessKilled(seckillId, userPhone, nowTime);
                 if(insertCount <= 0){
                     throw new RepeatKillException("seckill repeated");
                 }else {
@@ -117,7 +124,7 @@ public class SeckillServiceImpl implements SeckillService{
             throw e1;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
-            //把编译期一场转换为运行时异常
+            //把编译期异常转换为运行时异常
             throw new SeckillException("seckill inner error : " + e.getMessage());
         }
     }
