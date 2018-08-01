@@ -2,6 +2,7 @@ package cn.jasonren.seckill.service;
 
 import cn.jasonren.seckill.dto.Exposer;
 //import cn.jasonren.seckill.dto.SeckillExecution;
+import cn.jasonren.seckill.dto.SeckillExecution;
 import cn.jasonren.seckill.entity.Seckill;
 import cn.jasonren.seckill.exception.RepeatKillException;
 import cn.jasonren.seckill.exception.SeckillCloseException;
@@ -24,7 +25,9 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/applicationContext-dao.xml", "classpath:spring/applicationContext-service.xml"})
+@ContextConfiguration({
+    "classpath:spring/applicationContext-dao.xml",
+    "classpath:spring/applicationContext-service.xml"})
 public class SeckillServiceImplTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -32,22 +35,49 @@ public class SeckillServiceImplTest {
     private SeckillService seckillService;
 
     @Test
-    public void getSeckillList() throws Exception{
+    public void testGetSeckillList() throws Exception {
         List<Seckill> seckillList = seckillService.getSeckillList();
-        System.out.println(seckillList.toString());
+        logger.info("list={}", seckillList);
     }
 
     @Test
-    public void getById() throws Exception{
+    public void testGetById() throws Exception {
         long seckillId = 1000;
-        Seckill byId = seckillService.getById(seckillId);
-        System.out.println(byId.toString());
+        Seckill seckill = seckillService.getById(seckillId);
+        logger.info("seckill={}", seckill);
     }
 
+    //测试代码完整逻辑，注意可重复执行
     @Test
-    public void exportSeckillUrl() throws Exception{
-        long seckillId = 1000;
+    public void testExportSeckillLogic() throws Exception {
+        long seckillId = 1001;
         Exposer exposer = seckillService.exportSeckillUrl(seckillId);
-        System.out.println(exposer.toString());
+        if(exposer.isExposed()) {
+            logger.info("exposer={}", exposer);
+            long phone = 18621008382L;
+            String md5 = "be70bf70f13b7d6d1c0aa8d12f245b8d";
+            try {
+                SeckillExecution seckillExecution = seckillService.executeSeckill(seckillId, phone, md5);
+                logger.info("seckillExecution={}", seckillExecution);
+            }catch (RepeatKillException | SecurityException e){
+                logger.error(e.getMessage());
+            }
+        }else {
+            //秒杀未开启
+            logger.warn("exposer={}", exposer);
+        }
+    }
+
+    @Test
+    public void testExecuteSeckill() throws Exception {
+        long id = 1000;
+        long phone = 18621008381L;
+        String md5 = "be70bf70f13b7d6d1c0aa8d12f245b8d";
+        try {
+            SeckillExecution seckillExecution = seckillService.executeSeckill(id, phone, md5);
+            logger.info("seckillExecution={}", seckillExecution);
+        }catch (RepeatKillException | SecurityException e){
+            logger.error(e.getMessage());
+        }
     }
 }
