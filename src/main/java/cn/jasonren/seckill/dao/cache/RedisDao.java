@@ -10,6 +10,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
+ *
+ * 操作Redis的dao类
  * @author : JasonRen
  * @date : 2018-08-01 下午10:00
  * @email : zhicheng_ren@163.com
@@ -37,7 +39,8 @@ public class RedisDao {
             //get->byte[]字节数组->反序列化->Object(Seckill)
             byte[] bytes = jedis.get(key.getBytes());
             if (bytes != null) {
-                //空对象
+                LOGGER.info("Redis取!");
+                // new一个空对象
                 Seckill seckill = schema.newMessage();
                 ProtostuffIOUtil.mergeFrom(bytes, seckill, schema);
                 //seckill被反序列化
@@ -56,7 +59,8 @@ public class RedisDao {
             byte[] bytes = ProtostuffIOUtil.toByteArray(seckill, schema,
                 LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
             //超时缓存
-            int timeout = 60 * 60;
+            int timeout = 60 * 60; //1小时
+            LOGGER.info("放进去Redis了！");
             return jedis.setex(key.getBytes(), timeout, bytes);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
