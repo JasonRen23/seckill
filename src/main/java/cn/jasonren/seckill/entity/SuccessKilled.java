@@ -1,12 +1,13 @@
 package cn.jasonren.seckill.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 /**
  * 秒杀后的状态
  * @author : JasonRen
- * @date : 2018/06/30
+ * @Date : 2018/06/30
  * @email : zhicheng_ren@163.com
  * @since :1.8
  */
@@ -25,7 +26,7 @@ public class SuccessKilled implements Serializable{
     /**
      * 创建时间
      * */
-    private LocalDateTime createTime;
+    private Date createTime;
     /**
      * 多对一，因为一件商品在库存中肯定有许多，对应的购买信息也有很多
      * */
@@ -34,7 +35,7 @@ public class SuccessKilled implements Serializable{
     public SuccessKilled() {
     }
 
-    public SuccessKilled(long seckillId, long userPhone, short state, LocalDateTime createTime, Seckill seckill) {
+    public SuccessKilled(long seckillId, long userPhone, short state, Date createTime, Seckill seckill) {
         this.seckillId = seckillId;
         this.userPhone = userPhone;
         this.state = state;
@@ -66,11 +67,11 @@ public class SuccessKilled implements Serializable{
         this.state = state;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
