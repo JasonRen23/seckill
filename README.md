@@ -8,6 +8,12 @@ MySQL压力，同时采用protostuff做序列化框架序列化Seckill这个POJO
 减少竞争行级锁的阻塞时间。
 3. 将执行秒杀操作的insert和update直接放在MySQL服务端的存储过程，Java客户端直接调用，省去了
 事务管理。
+4. 将原有数据库连接池C3P0换为Druid，其支持SQL拦截，并发性较好，且有监控功能，访问http://localhost:8080/druid/index.html可登入监控界面。
+
+监控效果如下：
+![](https://ws1.sinaimg.cn/large/73d640f7ly1fu40v01qcvj226u11ggwb.jpg)
+
+![](https://ws1.sinaimg.cn/large/73d640f7ly1fu40uzv68xj226m0fowjn.jpg)
 
 ### 重点难点
 1. Spring的声明式事务，此次项目里采用的是@Transcational注解的方式。并且spring的事务
