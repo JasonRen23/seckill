@@ -14,7 +14,7 @@ import java.util.List;
  * @author : JasonRen
  * @date : 2018/07/02
  * @email : zhicheng_ren@163.com
- *
+ * <p>
  * 配置Spring和Junit整合，junit在启动时就会加载spring容器
  */
 
@@ -25,7 +25,7 @@ public class SeckillMapperTest {
     private SeckillMapper seckillMapper;
 
     @Test
-    public void reduceNumber() throws Exception{
+    public void reduceNumber() throws Exception {
         long seckillId = 1000;
         Date date = new Date();
         int i = seckillMapper.reduceNumber(seckillId, date);
@@ -33,16 +33,16 @@ public class SeckillMapperTest {
     }
 
     @Test
-    public void queryById() throws Exception{
+    public void queryById() throws Exception {
         long seckillId = 1000;
         Seckill seckill = seckillMapper.queryById(seckillId);
         System.out.println(seckill.toString());
     }
 
     @Test
-    public void queryAll() throws Exception{
+    public void queryAll() throws Exception {
         List<Seckill> seckills = seckillMapper.queryAll(0, 100);
-        for(Seckill seckill : seckills){
+        for (Seckill seckill : seckills) {
             System.out.println(seckill.toString());
         }
 

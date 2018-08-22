@@ -4,7 +4,7 @@ package cn.jasonren.seckill.dto;
  * @author : JasonRen
  * @date : 2018-07-30 上午1:04
  * @email : zhicheng_ren@163.com
- *
+ * <p>
  * 将所有的ajax请求返回类型，全部封装json结果
  */
 public class SeckillResult<T> {

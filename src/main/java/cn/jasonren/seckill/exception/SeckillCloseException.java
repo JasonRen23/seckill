@@ -7,7 +7,7 @@ package cn.jasonren.seckill.exception;
  * @date : 2018/07/02
  * @email : zhicheng_ren@163.com
  */
-public class SeckillCloseException extends SeckillException{
+public class SeckillCloseException extends SeckillException {
     public SeckillCloseException(String message) {
         super(message);
     }

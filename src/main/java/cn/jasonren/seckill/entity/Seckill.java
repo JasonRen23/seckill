@@ -5,34 +5,37 @@ import java.util.Date;
 
 /**
  * 秒杀的商品
+ *
  * @author : JasonRen
  * @date : 2018/06/30
  * @email : zhicheng_ren@163.com
  */
-public class Seckill implements Serializable{
+public class Seckill implements Serializable {
 
-    private static final long serialVersionUID =  2912164127598660137L;
+    private static final long serialVersionUID = 2912164127598660137L;
     /**
      * 主键ID
-     * */
+     */
     private long seckillId;
     /**
      * 秒杀商品名字
-     * */
+     */
     private String name;
     /**
      * 商品数量
-     * */
+     */
     private int number;
     /**
      * 开始秒杀时间
-     * */
+     */
     private Date startTime;
-    /**结束秒杀时间
-     * */
+    /**
+     * 结束秒杀时间
+     */
     private Date endTime;
-    /**创建的时间
-     * */
+    /**
+     * 创建的时间
+     */
     private Date createTime;
 
     public Seckill() {
@@ -98,12 +101,12 @@ public class Seckill implements Serializable{
     @Override
     public String toString() {
         return "cn.jasonren.seckill.entity.Seckill{" +
-                "主键ID=" + seckillId +
-                ", 秒杀商品='" + name + '\'' +
-                ", 商品数量=" + number +
-                ", 开始秒杀时间=" + startTime +
-                ", 结束秒杀时间=" + endTime +
-                ", 创建时间=" + createTime +
-                "}\n";
+            "主键ID=" + seckillId +
+            ", 秒杀商品='" + name + '\'' +
+            ", 商品数量=" + number +
+            ", 开始秒杀时间=" + startTime +
+            ", 结束秒杀时间=" + endTime +
+            ", 创建时间=" + createTime +
+            "}\n";
     }
 }

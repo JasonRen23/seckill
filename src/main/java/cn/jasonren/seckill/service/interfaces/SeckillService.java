@@ -20,12 +20,14 @@ import java.util.List;
 public interface SeckillService {
     /**
      * 查询全部的秒杀记录
+     *
      * @return List<Seckill>
      */
     List<Seckill> getSeckillList();
 
     /**
      * 查询单个秒杀记录
+     *
      * @param seckillId
      * @return 根据ID查询出来的记录信息
      */

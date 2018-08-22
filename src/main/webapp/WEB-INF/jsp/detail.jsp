@@ -15,7 +15,7 @@
             <h2 class="text-danger">
                 <%--显示time图标--%>
                 <span class="glyphicon glyphicon-time"></span>
-                    <%--展示倒计时--%>
+                <%--展示倒计时--%>
                 <span class="glyphicon" id="seckill-box"></span>
             </h2>
         </div>
@@ -62,14 +62,14 @@
 <script src="${pageContext.request.contextPath}/resources/script/seckill.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        // 使用EL表达式传入参数
-        seckill.detail.init({
-            seckillId:${seckill.seckillId},
-            startTime:${seckill.startTime.time},//毫秒
-            endTime:${seckill.endTime.time}
-        });
-    })
+	$(function () {
+		// 使用EL表达式传入参数
+		seckill.detail.init({
+			seckillId:${seckill.seckillId},
+			startTime:${seckill.startTime.time},//毫秒
+			endTime:${seckill.endTime.time}
+		});
+	})
 </script>
 
 </html>

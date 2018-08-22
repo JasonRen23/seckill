@@ -72,10 +72,10 @@ public class SeckillExecution {
     @Override
     public String toString() {
         return "SeckillExecution{" +
-                "秒杀的商品ID=" + seckillId +
-                ", 秒杀状态=" + state +
-                ", 秒杀状态信息='" + stateInfo + '\'' +
-                ", 秒杀的商品=" + successKilled +
-                '}';
+            "秒杀的商品ID=" + seckillId +
+            ", 秒杀状态=" + state +
+            ", 秒杀状态信息='" + stateInfo + '\'' +
+            ", 秒杀的商品=" + successKilled +
+            '}';
     }
 }

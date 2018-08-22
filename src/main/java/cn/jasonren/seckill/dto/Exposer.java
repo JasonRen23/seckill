@@ -2,6 +2,7 @@ package cn.jasonren.seckill.dto;
 
 /**
  * 暴露秒杀地址接口
+ *
  * @author : JasonRen
  * @date : 2018/07/02
  * @email : zhicheng_ren@163.com
@@ -19,7 +20,7 @@ public class Exposer {
 
     private long end;
 
-    public Exposer(){
+    public Exposer() {
     }
 
     public Exposer(boolean exposed, String md5, long seckillId) {
@@ -92,12 +93,12 @@ public class Exposer {
     @Override
     public String toString() {
         return "Exposer{" +
-                "秒杀状态=" + exposed +
-                ", md5加密值='" + md5 + '\'' +
-                ", 秒杀ID=" + seckillId +
-                ", 当前时间=" + now +
-                ", 开始时间=" + start +
-                ", 结束=" + end +
-                "}\n";
+            "秒杀状态=" + exposed +
+            ", md5加密值='" + md5 + '\'' +
+            ", 秒杀ID=" + seckillId +
+            ", 当前时间=" + now +
+            ", 开始时间=" + start +
+            ", 结束=" + end +
+            "}\n";
     }
 }

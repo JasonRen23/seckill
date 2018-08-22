@@ -6,30 +6,31 @@ import java.util.Date;
 
 /**
  * 秒杀后的状态
+ *
  * @author : JasonRen
  * @Date : 2018/06/30
  * @email : zhicheng_ren@163.com
  * @since :1.8
  */
-public class SuccessKilled implements Serializable{
+public class SuccessKilled implements Serializable {
     private static final Long serialVersionUID = 1834437127882846202L;
 
     private long seckillId;
     /**
      * 用户的手机号
-     * */
+     */
     private long userPhone;
     /**
      * 秒杀状态
-     * */
+     */
     private short state;
     /**
      * 创建时间
-     * */
+     */
     private Date createTime;
     /**
      * 多对一，因为一件商品在库存中肯定有许多，对应的购买信息也有很多
-     * */
+     */
     private Seckill seckill;
 
     public SuccessKilled() {
@@ -86,11 +87,11 @@ public class SuccessKilled implements Serializable{
     @Override
     public String toString() {
         return "SuccessKilled{" +
-                "主键ID=" + seckillId +
-                ", 手机号码=" + userPhone +
-                ", 秒杀状态=" + state +
-                ", 创建时间=" + createTime +
-                ", 秒杀的商品=" + seckill +
-                "}\n";
+            "主键ID=" + seckillId +
+            ", 手机号码=" + userPhone +
+            ", 秒杀状态=" + state +
+            ", 创建时间=" + createTime +
+            ", 秒杀的商品=" + seckill +
+            "}\n";
     }
 }
